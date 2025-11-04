@@ -10,16 +10,18 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors(opt => opt.AddPolicy("AllowAll", opt => opt.AllowAnyHeader()
-.AllowAnyMethod()
-.AllowAnyOrigin()));
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowFrontend", policy =>
-//        policy.WithOrigins("https://black-plant-0a3399900.3.azurestaticapps.net")
-//              .AllowAnyHeader()
-//              .AllowAnyMethod());
-//});
+//builder.Services.AddCors(opt => opt.AddPolicy("AllowAll", opt => opt.AllowAnyHeader()
+//.AllowAnyMethod()
+//.AllowAnyOrigin()));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.WithOrigins(
+              "https://black-plant-0a3399900.3.azurestaticapps.net",
+              "http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options=>
